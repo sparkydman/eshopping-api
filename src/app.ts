@@ -1,5 +1,16 @@
-import express from "express";
+import express from 'express';
+import config from 'config';
+import connectDB from './utils/connect';
+import log from './utils/logger';
+import routes from './routes';
+
+const port = config.get<number>('port');
 
 const app = express();
 
-app.listen(1337, () => console.log('listening on port 1337'));
+app.listen(port, async () => {
+  log.info(`App listening on http://localhost:${port}`);
+  await connectDB();
+
+  routes(app);
+});
