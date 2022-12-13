@@ -8,13 +8,13 @@ interface IUser {
   password: string;
 }
 
-interface UserDocument extends IUser, mongoose.Document {
+export interface UserDocument extends IUser, mongoose.Document {
   createdAt: string;
   updatedAt: string;
   comparePassword(userPassword: string): Promise<boolean>;
 }
 
-const userSchema = new mongoose.Schema<IUser>(
+const userSchema = new mongoose.Schema<UserDocument>(
   {
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
@@ -47,3 +47,5 @@ userSchema.methods.comparePassword = async function (
 };
 
 const userModel = mongoose.model('User', userSchema);
+
+export default userModel;
