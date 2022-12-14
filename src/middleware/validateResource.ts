@@ -10,6 +10,7 @@ const validate =
         params: req.params,
         query: req.query,
       });
+      next();
     } catch (error: any) {
       return res.status(400).send(error.errors);
     }
