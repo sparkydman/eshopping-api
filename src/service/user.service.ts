@@ -20,7 +20,7 @@ export async function validateUserPassword({
   email: string;
   password: string;
 }) {
-  const user = await userModel.findOne({ email }).lean();
+  const user = await userModel.findOne({ email });
   if (!user) {
     return false;
   }
@@ -31,5 +31,5 @@ export async function validateUserPassword({
     return false;
   }
 
-  return omit(user, 'password');
+  return omit(user.toJSON(), 'password');
 }

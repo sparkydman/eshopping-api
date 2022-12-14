@@ -6,16 +6,20 @@ export function signToken(
   key: 'accessTokenPrivateKey' | 'refreshTokenPrivateKey',
   options?: jwt.SignOptions | undefined
 ) {
-  const privateKey = Buffer.from(config.get<string>(key), 'base64').toString(
-    'ascii'
-  );
+  try {
+    // const privateKey = Buffer.from(config.get<string>(key), 'base64').toString(
+    //   'ascii'
+    // );
 
-  const token = jwt.sign(payload, privateKey, {
-    ...(options && options),
-    algorithm: 'RS256',
-  });
+    const token = jwt.sign(payload, config.get<string>(key), {
+      ...(options && options),
+      algorithm: 'RS256',
+    });
 
-  return token;
+    return token;
+  } catch (error: any) {
+    console.log(error);
+  }
 }
 
 export function verifyToken(
@@ -23,10 +27,10 @@ export function verifyToken(
   key: 'accessTokenPublicKey' | 'refreshTokenPublicKey'
 ) {
   try {
-    const publicKey = Buffer.from(config.get<string>(key), 'base64').toString(
-      'ascii'
-    );
-    const decoded = jwt.verify(token, publicKey);
+    // const publicKey = Buffer.from(config.get<string>(key), 'base64').toString(
+    //   'ascii'
+    // );
+    const decoded = jwt.verify(token, config.get<string>(key));
     return {
       valid: true,
       expired: false,

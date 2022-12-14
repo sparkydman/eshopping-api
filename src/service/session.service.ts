@@ -7,7 +7,7 @@ export async function createUserSession({
   userId: string;
   userAgent: string;
 }) {
-  const session = await sessionModel.create({userId, userAgent});
+  const session = await sessionModel.create({ userId, userAgent });
 
   return session;
 }

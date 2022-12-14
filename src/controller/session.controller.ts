@@ -18,7 +18,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   });
 
   // generate access token
-  const accessTtl = config.get<string>('accessTokenTtl');
+  const accessTtl = config.get<string>('accessTokenTtl'); // 15minutes
   const accessToken = signToken(
     { ...user, session: userSession._id },
     'accessTokenPrivateKey',
@@ -26,12 +26,12 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   );
 
   //generate refresh token
-  const refreshTtl = config.get<string>('refreshTokenTtl');
+  const refreshTtl = config.get<string>('refreshTokenTtl'); // 1year
   const refreshToken = signToken(
     { ...user, session: userSession._id },
     'refreshTokenPrivateKey',
     { expiresIn: refreshTtl }
   );
 
-  res.send(accessToken, refreshToken);
+  res.send({ accessToken, refreshToken });
 }
