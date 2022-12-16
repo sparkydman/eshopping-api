@@ -27,11 +27,12 @@ export async function deserializeUser(
 
   if (expired && refreshToken) {
     const newAccessToken = await renewAccessToken({ refreshToken });
-
     if (!newAccessToken) return next();
 
-    const result = verifyToken(newAccessToken, 'accessTokenPublicKey');
+     res.setHeader('x-access-token', newAccessToken);
 
+    const result = verifyToken(newAccessToken as string, 'accessTokenPublicKey');
+    
     res.locals.user = result.decoded;
     return next();
   }

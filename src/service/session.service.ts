@@ -1,9 +1,9 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { get } from 'lodash';
 import config from 'config';
 import sessionModel, { SessionDocument } from '../model/session.model';
 import { signToken, verifyToken } from '../utils/jwt';
-import userModel from '../model/user.model';
+import { findUser } from './user.service';
 
 export async function createUserSession({
   userId,
@@ -27,13 +27,14 @@ export async function renewAccessToken({
   refreshToken: string;
 }) {
   const { decoded } = verifyToken(refreshToken, 'refreshTokenPublicKey');
-  if (decoded && !get(decoded, 'session')) return false;
+  if (!decoded || !get(decoded, 'session')) return false;
 
   const session = await sessionModel.findById(get(decoded, 'session'));
-  if (!session) return false;
-  if (session && !session.isValid) return false;
 
-  const user = await userModel.findById(session.userId);
+  if (!session || !session.isValid) return false;
+
+  const user = await findUser({ _id: session.userId });
+
   if (!user) return false;
 
   const newAccessToken = signToken(
@@ -43,4 +44,11 @@ export async function renewAccessToken({
   );
 
   return newAccessToken;
+}
+
+export async function updateSession(
+  query: FilterQuery<SessionDocument>,
+  update: UpdateQuery<SessionDocument>
+) {
+  return await sessionModel.updateOne(query, update);
 }

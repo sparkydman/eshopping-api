@@ -40,7 +40,7 @@ export function verifyToken(
     return {
       valid: false,
       expired: error.message === 'jwt expired',
-      dcoded: null,
+      decoded: null,
     };
   }
 }
