@@ -13,12 +13,18 @@ export async function createProduct(input: DocumentDefinition<IProduct>) {
   return await ProductModel.create(input);
 }
 
-export async function getProducts(query: FilterQuery<ProductDocument>) {
-  return await ProductModel.find(query).lean();
+export async function getProducts(
+  query: FilterQuery<ProductDocument>,
+  options: QueryOptions = { lean: true }
+) {
+  return await ProductModel.find(query, options);
 }
 
-export async function getProduct(query: FilterQuery<ProductDocument>) {
-  return await ProductModel.findOne(query).lean();
+export async function getProduct(
+  query: FilterQuery<ProductDocument>,
+  options: QueryOptions = { lean: true }
+) {
+  return await ProductModel.findOne(query, options);
 }
 
 export async function updateProduct(

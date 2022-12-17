@@ -1,5 +1,10 @@
 import { Express, Request, Response } from 'express';
-import { createProductHandler } from './controller/production.controller';
+import {
+  createProductHandler,
+  getProductHandler,
+  getProductsHandler,
+  getUserProductsHandler,
+} from './controller/production.controller';
 import {
   createUserSessionHandler,
   deleteUserSessions,
@@ -8,9 +13,10 @@ import {
 import { createUserHandler } from './controller/user.controller';
 import { requiredUser } from './middleware/requiredUser';
 import validateResource from './middleware/validateResource';
-import { createProductSchema } from './schema/product.schema';
+import { createProductSchema, getProductSchema } from './schema/product.schema';
 import { createUserSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
+import { deleteProduct } from './service/product.service';
 
 const routes = (app: Express) => {
   // ******User routes********************************
@@ -31,6 +37,19 @@ const routes = (app: Express) => {
     requiredUser,
     validateResource(createProductSchema),
     createProductHandler
+  );
+  app.get(
+    '/api/products/:productId',
+    validateResource(getProductSchema),
+    getProductHandler
+  );
+  app.get('/api/products', getProductsHandler);
+  app.get('/api/products/user-products', requiredUser, getUserProductsHandler);
+  app.delete(
+    '/api/products/:productId',
+    requiredUser,
+    validateResource(getProductSchema),
+    deleteProduct
   );
 };
 

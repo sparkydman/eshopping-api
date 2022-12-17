@@ -22,5 +22,9 @@ const params = {
 };
 
 export const createProductSchema = object({ ...payload });
+export const updateProductSchema = object({ ...params, ...payload });
+export const getProductSchema = object({ ...params});
 
 export type CreateProductInput = TypeOf<typeof createProductSchema>;
+export type UpdateProductInput = TypeOf<typeof updateProductSchema>;
+export type GetProductInput = TypeOf<typeof getProductSchema>;

@@ -1,7 +1,17 @@
 import { Request, Response } from 'express';
 import { get } from 'lodash';
-import { CreateProductInput } from '../schema/product.schema';
-import { createProduct } from '../service/product.service';
+import {
+  CreateProductInput,
+  GetProductInput,
+  UpdateProductInput,
+} from '../schema/product.schema';
+import {
+  createProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updateProduct,
+} from '../service/product.service';
 
 export async function createProductHandler(
   req: Request<{}, {}, CreateProductInput['body']>,
@@ -13,4 +23,60 @@ export async function createProductHandler(
   const product = await createProduct(payload);
 
   res.send(product);
+}
+
+export async function updateProductHandler(
+  req: Request<UpdateProductInput['params']>,
+  res: Response
+) {
+  const userId = get(res.locals.user, '_id');
+
+  const product = await getProduct({ _id: req.params.productId });
+
+  if (!product) return res.status(404);
+  if (product.userId !== userId) return res.status(403);
+
+  const updatedProduct = await updateProduct(
+    { _id: req.params.productId, userId: userId },
+    req.body,
+    { new: true }
+  );
+
+  res.send(updatedProduct);
+}
+
+export async function getUserProductsHandler(req: Request, res: Response) {
+  const userId = get(res.locals.user, '_id');
+
+  const products = await getProducts({ userId });
+  res.send(products);
+}
+
+export async function getProductsHandler(req: Request, res: Response) {
+  const products = await getProducts({});
+  res.send(products);
+}
+
+export async function getProductHandler(
+  req: Request<GetProductInput['params']>,
+  res: Response
+) {
+  const products = await getProduct({ _id: req.params.productId });
+  res.send(products);
+}
+
+export async function deleteProductHandler(
+  req: Request<GetProductInput['params']>,
+  res: Response
+) {
+  const userId = get(res.locals.user, '_id');
+
+  const product = await getProduct({ _id: req.params.productId });
+
+  if (!product) return res.status(404);
+  if (product.userId !== userId) return res.status(403);
+
+  await deleteProduct({ _id: req.params.productId });
+
+  res.send('Product deleted successfully');
 }
