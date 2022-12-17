@@ -1,6 +1,7 @@
 import { Express, Request, Response } from 'express';
 import {
   createProductHandler,
+  deleteProductHandler,
   getProductHandler,
   getProductsHandler,
   getUserProductsHandler,
@@ -54,7 +55,7 @@ const routes = (app: Express) => {
     '/api/products/:productId',
     requiredUser,
     validateResource(getProductSchema),
-    deleteProduct
+    deleteProductHandler
   );
   app.put(
     '/api/products/:productId',

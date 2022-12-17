@@ -74,8 +74,8 @@ export async function deleteProductHandler(
 
   const product = await getProduct({ _id: req.params.productId });
 
-  if (!product) return res.status(404);
-  if (product.userId !== userId) return res.status(403);
+  if (!product) return res.status(404).send('product not found');
+  if (product.userId.toString() !== userId) return res.status(403).send('you are not allowed to perform this action');
 
   await deleteProduct({ _id: req.params.productId });
 
