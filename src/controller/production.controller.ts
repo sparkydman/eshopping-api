@@ -33,8 +33,9 @@ export async function updateProductHandler(
 
   const product = await getProduct({ _id: req.params.productId });
 
-  if (!product) return res.status(404);
-  if (product.userId !== userId) return res.status(403);
+  if (!product) return res.status(404).send('product not found');
+  if (product.userId.toString() !== userId)
+    return res.status(403).send('your are not allowed to perform this action');
 
   const updatedProduct = await updateProduct(
     { _id: req.params.productId, userId: userId },
@@ -61,8 +62,8 @@ export async function getProductHandler(
   req: Request<GetProductInput['params']>,
   res: Response
 ) {
-  const products = await getProduct({ _id: req.params.productId });
-  res.send(products);
+  const product = await getProduct({ _id: req.params.productId });
+  res.send(product);
 }
 
 export async function deleteProductHandler(

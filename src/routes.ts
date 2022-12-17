@@ -4,6 +4,7 @@ import {
   getProductHandler,
   getProductsHandler,
   getUserProductsHandler,
+  updateProductHandler,
 } from './controller/production.controller';
 import {
   createUserSessionHandler,
@@ -13,7 +14,11 @@ import {
 import { createUserHandler } from './controller/user.controller';
 import { requiredUser } from './middleware/requiredUser';
 import validateResource from './middleware/validateResource';
-import { createProductSchema, getProductSchema } from './schema/product.schema';
+import {
+  createProductSchema,
+  getProductSchema,
+  updateProductSchema,
+} from './schema/product.schema';
 import { createUserSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
 import { deleteProduct } from './service/product.service';
@@ -50,6 +55,12 @@ const routes = (app: Express) => {
     requiredUser,
     validateResource(getProductSchema),
     deleteProduct
+  );
+  app.put(
+    '/api/products/:productId',
+    requiredUser,
+    validateResource(updateProductSchema),
+    updateProductHandler
   );
 };
 

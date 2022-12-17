@@ -15,14 +15,14 @@ export async function createProduct(input: DocumentDefinition<IProduct>) {
 
 export async function getProducts(
   query: FilterQuery<ProductDocument>,
-  options: QueryOptions = { lean: true }
+  options?: QueryOptions
 ) {
   return await ProductModel.find(query, options);
 }
 
 export async function getProduct(
   query: FilterQuery<ProductDocument>,
-  options: QueryOptions = { lean: true }
+  options?: QueryOptions
 ) {
   return await ProductModel.findOne(query, options);
 }
