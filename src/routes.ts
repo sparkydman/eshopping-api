@@ -26,6 +26,31 @@ import { deleteProduct } from './service/product.service';
 
 const routes = (app: Express) => {
   // ******User routes********************************
+  /**
+   * @openapi
+   * '/api/users':
+   *  post:
+   *    tags:
+   *    - Users
+   *    summary: Create a new user
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *          schema:
+   *            $ref: '#/components/schemas/CreateUserInput'
+   *    responses:
+   *      200:
+   *          description: Success
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/CreateUserResponse'
+   *      409:
+   *          description: Conflict
+   *      400:
+   *          description: Bad Request
+   */
   app.post('/api/users', validateResource(createUserSchema), createUserHandler);
 
   // ******Session routes********************************

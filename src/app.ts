@@ -6,6 +6,7 @@ import routes from './routes';
 import { deserializeUser } from './middleware/deserializeUser';
 import { restResponseTimeHistogram, startMetricsServer } from './utils/metrics';
 import responseTime from 'response-time';
+import swaggerDoc from './utils/swagger';
 
 const port = config.get<number>('port');
 
@@ -37,4 +38,6 @@ app.listen(port, async () => {
   routes(app);
 
   startMetricsServer();
+
+  swaggerDoc(app, port);
 });
