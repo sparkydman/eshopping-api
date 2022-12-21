@@ -1,14 +1,15 @@
 import { get } from 'lodash';
 import { NextFunction, Request, Response } from 'express';
 
-export async function requiredUser(
+export function requiredUser(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const user = get(res.locals, 'user');
   if (!user) {
-    return res.status(401).send('login is required');
+     res.status(401)
+     return res.send('login is required');
   }
 
   return next();

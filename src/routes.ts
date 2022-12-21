@@ -22,7 +22,6 @@ import {
 } from './schema/product.schema';
 import { createUserSessionSchema } from './schema/session.schema';
 import { createUserSchema } from './schema/user.schema';
-import { deleteProduct } from './service/product.service';
 
 const routes = (app: Express) => {
   // ******User routes********************************
@@ -75,7 +74,7 @@ const routes = (app: Express) => {
     getProductHandler
   );
   app.get('/api/products', getProductsHandler);
-  app.get('/api/products/user-products', requiredUser, getUserProductsHandler);
+  app.get('/api/products/user/all_products', requiredUser, getUserProductsHandler);
   app.delete(
     '/api/products/:productId',
     requiredUser,

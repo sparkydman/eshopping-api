@@ -2,17 +2,14 @@ import express, { Request, response, Response } from 'express';
 import config from 'config';
 import connectDB from './utils/connect';
 import log from './utils/logger';
-import routes from './routes';
-import { deserializeUser } from './middleware/deserializeUser';
 import { restResponseTimeHistogram, startMetricsServer } from './utils/metrics';
 import responseTime from 'response-time';
 import swaggerDoc from './utils/swagger';
+import createServer from './utils/server';
 
 const port = config.get<number>('port');
 
-const app = express();
-
-app.use(express.json());
+const app = createServer();
 
 app.use(
   responseTime((req: Request, res: Response, time: number) => {
@@ -32,10 +29,6 @@ app.use(
 app.listen(port, async () => {
   log.info(`App listening on http://localhost:${port}`);
   await connectDB();
-
-  app.use(deserializeUser);
-
-  routes(app);
 
   startMetricsServer();
 
