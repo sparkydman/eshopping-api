@@ -59,7 +59,7 @@ export async function updateProductHandler(
     if (product.userId.toString() !== userId) {
       timer({ ...metricsLabel, success: 'false' });
       res.status(403);
-      return res.send('your are not allowed to perform this action');
+      return res.send('you are not allowed to perform this action');
     }
 
     const updatedProduct = await updateProduct(
@@ -120,7 +120,8 @@ export async function getProductHandler(
     const product = await getProduct({ _id: req.params.productId });
     if (!product) {
       timer({ ...metricsLabel, success: 'false' });
-      return res.status(404).send('product not found');
+      res.status(404);
+      return res.send('product not found');
     }
     timer({ ...metricsLabel, success: 'true' });
     res.send(product);
@@ -145,11 +146,13 @@ export async function deleteProductHandler(
 
     if (!product) {
       timer({ ...metricsLabel, success: 'false' });
-      return res.status(404).send('product not found');
+      res.status(404);
+      return res.send('product not found');
     }
     if (product.userId.toString() !== userId) {
       timer({ ...metricsLabel, success: 'false' });
-      return res.status(403).send('you are not allowed to perform this action');
+      res.status(403);
+      return res.send('you are not allowed to perform this action');
     }
 
     await deleteProduct({ _id: req.params.productId });
