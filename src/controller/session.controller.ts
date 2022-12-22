@@ -13,7 +13,8 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   // validate user password
   const user = await validateUserPassword(req.body);
   if (!user) {
-    return res.status(400).send('Incorrect user email or password');
+    res.status(400);
+    return res.send('Incorrect user email or password');
   }
 
   //create user session
@@ -42,7 +43,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
 }
 
 export async function getUserSessions(req: Request, res: Response) {
-  const userId = get(res.locals.user, "_id");
+  const userId = get(res.locals.user, '_id');
 
   const sessions = await findSessions({ userId, isValid: true });
   res.send(sessions);

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export const userId = new mongoose.Types.ObjectId().toString();
 export const productId = new mongoose.Types.ObjectId().toString();
+export const sessionId = new mongoose.Types.ObjectId().toString();
 
 export const productResponse = {
   _id: productId,
@@ -48,6 +49,15 @@ export const sessionInput = {
 };
 
 export const sessionResponse = {
+  _id: new mongoose.Types.ObjectId().toString(),
+  userId: userId,
+  isValid: true,
+  createdAt: new Date('2022-12-16T01:30:23.870Z'),
+  updatedAt: new Date('2022-12-16T01:30:23.870Z'),
+  __v: 0,
+};
+
+export const TokeResponse = {
   accessToken: expect.any(String),
   refreshToken: expect.any(String),
 };
