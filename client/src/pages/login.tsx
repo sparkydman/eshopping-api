@@ -35,7 +35,7 @@ export default function Login() {
       );
       router.push('/');
     } catch (e: any) {
-      setLoginErr(e.message);
+      setLoginErr(e.response ? e.response?.data : e.message);
       setIsLoading(false);
     }
   };

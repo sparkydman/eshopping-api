@@ -1,5 +1,6 @@
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { IUser } from '../interfaces';
 
 const Layout = ({
@@ -18,6 +19,21 @@ const Layout = ({
 };
 
 const AuthenticatedNav = ({ user }: { user: IUser }) => {
+  const [loading, setLoading] = useState(false);
+
+  const logout = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/sessions`, {
+        withCredentials: true,
+      });
+      //   router.push('/');
+      window.location.reload();
+    } catch (e: any) {
+      setLoading(false);
+      console.log(e.message);
+    }
+  };
   return (
     <nav className='navbar'>
       <div className='container'>
@@ -35,7 +51,9 @@ const AuthenticatedNav = ({ user }: { user: IUser }) => {
             <Link href='/cart'>Profile</Link>
           </li>
           <li>
-            <button>Logout</button>
+            <button disabled={loading} onClick={() => logout()}>
+              Logout
+            </button>
           </li>
         </ul>
       </div>
