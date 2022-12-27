@@ -1,33 +1,20 @@
 import { GetServerSideProps, NextPage } from 'next';
 import useSwr from 'swr';
+import Layout from '../components/layout';
 import fetcher from '../fetcher';
+import { IUser } from '../interfaces';
 
-interface User {
-  _id: string;
-  email: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-  session: string;
-  iat: number;
-  exp: number;
-}
-
-const Home: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
-  const { data } = useSwr<User | null>(
+const Home: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
+  const { data } = useSwr<IUser | null>(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
     fetcher,
     { fallbackData }
   );
-  if (data) {
-    return <p>{data.name}</p>;
-  }
 
   return (
-    <>
-      <p>home page</p>
-    </>
+    <Layout user={data}>
+      <p>Home page</p>
+    </Layout>
   );
 };
 
