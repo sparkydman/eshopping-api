@@ -12,7 +12,10 @@ import {
   deleteUserSessions,
   getUserSessions,
 } from './controller/session.controller';
-import { createUserHandler } from './controller/user.controller';
+import {
+  createUserHandler,
+  getLoggedUserHandler,
+} from './controller/user.controller';
 import { requiredUser } from './middleware/requiredUser';
 import validateResource from './middleware/validateResource';
 import {
@@ -51,6 +54,7 @@ const routes = (app: Express) => {
    *          description: Bad Request
    */
   app.post('/api/users', validateResource(createUserSchema), createUserHandler);
+  app.get('/api/users/me', requiredUser, getLoggedUserHandler);
 
   // ******Session routes********************************
   app.post(
@@ -74,7 +78,11 @@ const routes = (app: Express) => {
     getProductHandler
   );
   app.get('/api/products', getProductsHandler);
-  app.get('/api/products/user/all_products', requiredUser, getUserProductsHandler);
+  app.get(
+    '/api/products/user/all_products',
+    requiredUser,
+    getUserProductsHandler
+  );
   app.delete(
     '/api/products/:productId',
     requiredUser,

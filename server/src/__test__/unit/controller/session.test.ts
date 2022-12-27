@@ -28,7 +28,8 @@ describe('session controller', () => {
         const req = { body: Data.sessionInput, get: jest.fn() };
         const status = jest.fn();
         const send = jest.fn();
-        const res = { status, send };
+        const cookie = jest.fn();
+        const res = { status, send, cookie };
 
         const mockValidatePassword = jest
           .spyOn(UserService, 'validateUserPassword')
@@ -79,9 +80,11 @@ describe('session controller', () => {
     describe('given user is logged in', () => {
       it('should return accessToken and refreshToken with null value', async () => {
         const send = jest.fn();
+        const cookie = jest.fn();
         const res = {
           locals: { user: { ...Data.userResponse, session: Data.sessionId } },
           send,
+          cookie
         };
         const req = {};
         const mockUpdateSession = jest

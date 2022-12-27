@@ -8,4 +8,9 @@ export default {
   accessTokenPublicKey: '',
   refreshTokenPrivateKey: '',
   refreshTokenPublicKey: '',
+  origin: '',
+  cookieDomain: 'localhost',
+  cookiePath: '/',
+  cookieAccessTokenMaxAge: 900000, //15 minutes
+  cookieRefreshTokenMaxAge: 3.154e10, //1 year
 };

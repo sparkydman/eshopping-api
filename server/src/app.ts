@@ -1,4 +1,4 @@
-import express, { Request, response, Response } from 'express';
+import { Request, Response } from 'express';
 import config from 'config';
 import connectDB from './utils/connect';
 import log from './utils/logger';

@@ -222,30 +222,6 @@ import * as Data from '../../mocks';
         });
       });
 
-      // describe('given that the productId does exit and not the owner', () => {
-      //   it('should return status code of 403 and error message', async () => {
-      //     const getProductMock = jest
-      //       .spyOn(ProductService, 'getProduct')
-      //       //@ts-ignore
-      //       .mockReturnValue(Data.productResponse);
-
-      //     const status = jest.fn();
-      //     const send = jest.fn();
-
-      //     const req = { params: { productId: Data.productId } };
-      //     const res = { locals: { user: Data.userResponse }, status, send };
-
-      //     //@ts-ignore
-      //     await ProductController.deleteProductHandler(req, res);
-
-      //     expect(getProductMock).toHaveBeenCalledWith({ _id: Data.productId });
-      //     expect(status).toHaveBeenCalledWith(403);
-      //     expect(send).toHaveBeenCalledWith(
-      //       'you are not allowed to perform this action'
-      //     );
-      //   },10000);
-      // });
-
       describe('given that the productId and user is the owner', () => {
         it('should return the success message', async () => {
           const send = jest.fn();
