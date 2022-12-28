@@ -12,6 +12,9 @@ a {
 a:hover {
   color: #8a2be2;
 }
+ul {
+  list-style: none;
+}
 
 .form-container {
   width: 100%;
@@ -129,11 +132,28 @@ form h1 {
   padding: 0 10px;
   padding-bottom: 1rem;
 }
-.card-bottom button {
+.card-bottom button,
+.product-info ul li button {
   cursor: pointer;
   width: 100%;
   border: 0;
   padding: 10px;
   background-color: #8a2be2;
   color: #fff;
+}
+.product-detail {
+  display: flex;
+  justify-content: space-between;
+}
+.product-info ul li {
+  padding-bottom: 1rem;
+}
+.product-info ul li p span:first-child {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  border-radius: 3px;
+}
+.product-info ul li button {
+  width: max-content;
+  padding: 1rem 3rem;
 }

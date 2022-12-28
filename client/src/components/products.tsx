@@ -1,9 +1,12 @@
-import React from 'react'
-import { useGetProducts } from '../hooks';
+import React from 'react';
+import { useFetchData } from '../hooks';
+import { IProduct } from '../interfaces';
 import Product from './product';
 
 const Products = () => {
-    const { isLoading, data } = useGetProducts();
+  const { isLoading, data } = useFetchData<[IProduct]>(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/products`,{}
+  );
   return (
     <div className='container'>
       {isLoading ? (
@@ -17,6 +20,6 @@ const Products = () => {
       ) : null}
     </div>
   );
-}
+};
 
-export default Products
+export default Products;

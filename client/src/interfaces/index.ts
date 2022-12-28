@@ -11,7 +11,7 @@ export interface IUser {
 }
 
 export interface IProduct {
-  userId: object;
+  user: { name: string; _id: string };
   title: string;
   description: string;
   price: number;

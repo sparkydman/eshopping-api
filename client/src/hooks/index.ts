@@ -1,4 +1,4 @@
-import useSwr from 'swr';
+import useSwr, { SWRConfiguration } from 'swr';
 import fetcher from '../fetcher';
 import { IProduct, IUser } from '../interfaces';
 
@@ -20,10 +20,11 @@ export const useUser = ({
   };
 };
 
-export const useGetProducts = () => {
-  const { data, isLoading, isValidating, error } = useSwr<[IProduct] | null>(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/products`,
-    fetcher
+export const useFetchData = <T>(url: string, options: SWRConfiguration) => {
+  const { data, isLoading, isValidating, error } = useSwr<T | null>(
+    url,
+    fetcher,
+    options
   );
   return {
     data,
