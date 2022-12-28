@@ -113,3 +113,27 @@ form h1 {
   padding: 5px;
   cursor: pointer;
 }
+.home {
+  margin-top: 2rem;
+}
+.product-card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body {
+  padding: 1rem 10px;
+}
+.card-bottom {
+  padding: 0 10px;
+  padding-bottom: 1rem;
+}
+.card-bottom button {
+  cursor: pointer;
+  width: 100%;
+  border: 0;
+  padding: 10px;
+  background-color: #8a2be2;
+  color: #fff;
+}

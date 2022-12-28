@@ -1,15 +1,17 @@
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useUser } from '../hooks';
 import { IUser } from '../interfaces';
 
 const Layout = ({
   children,
-  user,
+  fallbackData,
 }: {
   children: React.ReactNode;
-  user: IUser | null | undefined;
+  fallbackData: IUser | null | undefined;
 }) => {
+  const { user } = useUser({ fallbackData });
   return (
     <>
       {user ? <AuthenticatedNav user={user} /> : <UnAuthenticatedNav />}

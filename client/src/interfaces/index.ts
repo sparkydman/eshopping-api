@@ -9,3 +9,16 @@ export interface IUser {
   iat: number;
   exp: number;
 }
+
+export interface IProduct {
+  userId: object;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  isInStock?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  _id: string;
+  __v: number;
+}
