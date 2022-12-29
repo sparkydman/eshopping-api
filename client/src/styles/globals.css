@@ -157,3 +157,32 @@ form h1 {
   width: max-content;
   padding: 1rem 3rem;
 }
+.dashboard-main {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  height: calc(100vh - 50px);
+}
+.dashboard-main aside {
+  flex: 2;
+}
+.dashboard-main aside ul {
+  padding: 2rem 0;
+}
+.dashboard-main aside ul li {
+  width: 100%;
+}
+.dashboard-main aside ul li a {
+  width: 100%;
+  display: block;
+  padding: 1rem 2rem;
+}
+.dashboard-main aside ul li a:hover {
+  background-color: rgba(181, 112, 246, 0.3);
+}
+.dashboard-main main {
+  flex: 7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  overflow: auto;
+}
