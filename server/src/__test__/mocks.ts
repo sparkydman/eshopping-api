@@ -6,7 +6,7 @@ export const sessionId = new mongoose.Types.ObjectId().toString();
 
 export const productResponse = {
   _id: productId,
-  userId: userId,
+  user: userId,
   title: 'Canon EOS 1500D DSLR Camera with 18-55mm Lens',
   description:
     'Designed for first-time DSLR owners who want impressive results straight out of the box, capture those magic moments no matter your level with the EOS 1500D. With easy to use automatic shooting modes, large 24.1 MP sensor, Canon Camera Connect app integration and built-in feature guide, EOS 1500D is always ready to go.',

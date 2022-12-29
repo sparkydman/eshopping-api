@@ -1,13 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose, { PopulatedDoc } from 'mongoose';
 import { UserDocument } from './user.model';
 
 export interface IProduct {
-  userId: UserDocument['_id'];
+  user: PopulatedDoc<UserDocument['_id'] & IPopulateUser>;
   title: string;
   description: string;
   price: number;
   image: string;
   isInStock?: boolean;
+}
+
+export interface IPopulateUser {
+  name: string;
+  image: string;
+  _id: UserDocument['_id'];
 }
 
 export interface ProductDocument extends IProduct, mongoose.Document {
@@ -17,7 +23,7 @@ export interface ProductDocument extends IProduct, mongoose.Document {
 
 const productSchema = new mongoose.Schema<ProductDocument>(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     title: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },

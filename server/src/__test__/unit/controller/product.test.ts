@@ -21,7 +21,7 @@ import * as Data from '../../mocks';
 
           expect(createProductMock).toHaveBeenCalledWith({
             ...Data.productInput,
-            userId: Data.userResponse._id,
+            user: Data.userResponse._id,
           });
           expect(send).toHaveBeenCalledWith(Data.productResponse);
         });
@@ -88,7 +88,7 @@ import * as Data from '../../mocks';
 
           const req = { params: { productId: Data.productId } };
           const res = { locals: { user: Data.userResponse }, status, send };
-          updatedResponse.userId = res.locals.user._id;
+          updatedResponse.user = res.locals.user._id;
           updatedResponse.price = updatedProduct.price;
           updatedResponse.title = updatedProduct.title;
 
@@ -229,7 +229,7 @@ import * as Data from '../../mocks';
 
           const req = { params: { productId: Data.productId } };
           const res = { locals: { user: Data.userResponse }, send };
-          updatedResponse.userId = res.locals.user._id;
+          updatedResponse.user = res.locals.user._id;
 
           const getProductMock = jest
             .spyOn(ProductService, 'getProduct')

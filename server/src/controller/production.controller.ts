@@ -18,8 +18,8 @@ export async function createProductHandler(
   req: Request<{}, {}, CreateProductInput['body']>,
   res: Response
 ) {
-  const userId = get(res.locals.user, '_id');
-  const payload = { ...req.body, userId };
+  const user = get(res.locals.user, '_id');
+  const payload = { ...req.body, user };
 
   const metricsLabel = {
     operation: 'createProduct',
@@ -56,7 +56,7 @@ export async function updateProductHandler(
       res.status(404);
       return res.send('product not found');
     }
-    if (product.userId.toString() !== userId) {
+    if (product.user.toString() !== userId) {
       timer({ ...metricsLabel, success: 'false' });
       res.status(403);
       return res.send('you are not allowed to perform this action');
@@ -149,7 +149,7 @@ export async function deleteProductHandler(
       res.status(404);
       return res.send('product not found');
     }
-    if (product.userId.toString() !== userId) {
+    if (product.user.toString() !== userId) {
       timer({ ...metricsLabel, success: 'false' });
       res.status(403);
       return res.send('you are not allowed to perform this action');

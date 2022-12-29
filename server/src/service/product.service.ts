@@ -17,14 +17,17 @@ export async function getProducts(
   query: FilterQuery<ProductDocument>,
   options?: QueryOptions
 ) {
-  return await ProductModel.find(query, options);
+  return await ProductModel.find(query, options).populate('user', 'name _id');
 }
 
 export async function getProduct(
   query: FilterQuery<ProductDocument>,
   options?: QueryOptions
 ) {
-  return await ProductModel.findOne(query, options);
+  return await ProductModel.findOne(query, options).populate(
+    'user',
+    'name _id'
+  );
 }
 
 export async function updateProduct(
