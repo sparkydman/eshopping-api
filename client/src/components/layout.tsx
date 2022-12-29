@@ -132,16 +132,14 @@ export const DashboardLayout = ({ children }: any) => {
           <ul>
             {menuList.map((menu, i) => (
               <li key={`menu-list-${i}`}>
-                <Link href={`/dashboard/${user?._id}${menu.path}`}>
+                <Link href={`/dashboard/${user?._id}/${menu.path}`}>
                   {menu.lable}
                 </Link>
               </li>
             ))}
           </ul>
         </aside>
-        <main>
-          <div>{children}</div>
-        </main>
+        <main>{children}</main>
       </div>
     </div>
   );
